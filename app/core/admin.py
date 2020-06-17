@@ -6,12 +6,13 @@ from core import models
 
 
 class UserAdmin(BaseUserAdmin):
-    ordering =['id']
+    ordering = ['id']
     list_display = ['email', 'name']
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal Info'), {'fields': ('name',)}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser')},),
+        (_('Permissions'), {'fields': ('is_active', 'is_staff',
+                                       'is_superuser')},),
         (_('Important Dates'), {'fields': ('last_login',)})
     )
 
@@ -22,4 +23,3 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(models.User, UserAdmin)
-

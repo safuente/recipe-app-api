@@ -6,7 +6,14 @@ ENV PYTHONBUFFERED 1
 
 # Copy requirements to container
 COPY ./requirements.txt /requirements.txt
+# Add postgresql client to image
+RUN apk add --update --no-cache postgresql-client
+# Alias for deps installed, list of dependencies needed for db
+RUN apk add --update --no-cache --virtual .tmp-build-deps \
+    gcc libc-dev linux-headers postgresql-dev
 RUN pip install -r /requirements.txt
+# Remove temp deps
+RUN apk del .tmp-build-deps
 
 RUN mkdir /app
 WORKDIR /app
